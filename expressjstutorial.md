@@ -80,3 +80,103 @@ How the App Works?{
         host = Name of the domain. You need to set it when you deploy your apps to the cloud.
         callback = An asynchronous function that is called when the server starts listening for requests.
 }
+Introduction to Routing{
+    Routing refers to determining how an application responds to a client request to a particular endpoint, which is a URI (or path) and a specific HTTP request method (GET,POST, and so on).
+    Each route can have one or more callback function, which are executed when the route is matched.
+
+    Syntax:-
+        app.method(path, callback)
+        app.method(path, [callback1, callback2, ...])
+        app.method(path, [callback1, callback2, ...], callback)
+
+        * app is an instance of express.
+        * method is an HTTP request method, in lowercase.
+        * path is a path on the server.
+        * callback is the function executed when the route is matched.
+
+    Syntax:-
+        const app = express()
+        app.get('/', function(req,res){
+            res.send("Hello Bhaiya")
+        })
+        app.post('/', function(req,res){
+            res.send("Hello Bhaiya")
+        })
+        app.get('/',(req,res)=>{
+            res.send("Hello Bhaiya")
+        })
+
+    app.method(path, callback)  
+        Methods
+        * GET - Retrieve Data
+        * POST - Create/Insert Data
+        * PUT - Completely Update Data
+        * PATCH - Partially Update Data
+        * DELETE - Delete Data
+        * ALL - Any HTTP request method
+    
+    Syntax:-
+        app.get('/student/all', (req,res)=>{
+            res.send("all student")
+        })
+        app.get('/student/create', (req,res)=>{
+            res.send("new student created")
+        })
+        app.put('/student/update', (req,res)=>{
+            res.send("student updated")
+        })
+        app.delete('/student/delete', callback)
+
+        app.all:-
+            This method is like the standard app.METHOD() Methods, execept it matches all HTTP verbs.
+            This method is useful for mapping "global" logic for specific path prefixes or arbitrary matches.
+        Example:-
+            app.all('/subkuch', (req,res,next)=>{
+                
+            })
+    
+    Prefix Path with all() Methods{
+        app.all('/api/*', (req,res)=>{
+            res.send('All Methods')
+        })
+    }
+
+    String Path{
+        app.get('/contact', (req,res)=>{
+            res.send('contact')
+        })
+    }
+
+    String Pattern Path{
+        app.get('/ab?cd', (req,res)=>{
+            res.send('This route path will match acd and abcd')
+        })
+    }
+
+    Regular Expression Path
+       
+        app.get(/a/, (req,res)=>{
+            res.send('If string is contain a then run')
+        }) 
+    
+    Chained Route callbacks
+        app.route(path) – It returns an instance of a single route, which you can then use to handle HTTP verbs with optional middleware. Use app.route() to avoid duplicate route names.
+
+        app.route('/student'){
+            .get(function(req,res)=>{
+                res.send("All student")
+            })
+            .post(function(req,res)=>{
+                res.send("add new student")
+            })
+            .put(function(req,res)=>{
+                res.send("update student")
+            })
+        }
+       
+
+}
+
+
+# Router in Expressjs
+    
